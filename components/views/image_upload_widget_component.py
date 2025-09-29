@@ -15,43 +15,52 @@ class ImageUploadWidgetComponent(BaseComponent):
 
         self.preview_empty_view = EmptyViewComponent(page, identifier)
 
-        self.preview_image = Image(page, '{identifier}-image-upload-widget-preview-image', 'Image')
+        self.preview_image = Image(page, f'{identifier}-image-upload-widget-preview-image', 'Preview')
 
-        self.image_upload_info_icon = Icon(page, '{identifier}-image-upload-widget-info-icon', 'Icon')
-        self.image_upload_info_title = Text(page, '{identifier}-image-upload-widget-info-title-text', 'Title')
-        self.image_upload_info_description = Text(page,
-                                                  '{identifier}-image-upload-widget-info-description-text',
-                                                  'Description'
-                                                  )
-        self.upload_button = Button(page, '{identifier}-image-upload-widget-upload-button', 'Button')
-        self.remove_button = Button(page, '{identifier}-image-upload-widget-remove-button', 'Button')
-        self.upload_input = FileInput(page, '{identifier}-image-upload-widget-input', 'Input')
+        self.image_upload_info_icon = Icon(
+            page, f'{identifier}-image-upload-widget-info-icon', 'Image upload info'
+        )
+        self.image_upload_info_title = Text(
+            page, f'{identifier}-image-upload-widget-info-title-text', 'Image upload info title'
+        )
+        self.image_upload_info_description = Text(
+            page,
+            f'{identifier}-image-upload-widget-info-description-text',
+            'Image upload info description'
+        )
 
-    def check_visible(self, identifier: str, is_image_uploaded: bool = False, ):
-        self.image_upload_info_icon.check_visible(identifier=identifier)
+        self.upload_button = Button(
+            page, f'{identifier}-image-upload-widget-upload-button', 'Upload image'
+        )
+        self.remove_button = Button(
+            page, f'{identifier}-image-upload-widget-remove-button', 'Remove image'
+        )
+        self.upload_input = FileInput(page, f'{identifier}-image-upload-widget-input', 'Upload')
 
-        self.image_upload_info_title.check_visible(identifier=identifier)
-        self.image_upload_info_title.check_have_text('Tap on "Upload image" button to select file',
-                                                     identifier=identifier)
-        self.image_upload_info_description.check_visible(identifier=identifier)
+    def check_visible(self, is_image_uploaded: bool = False):
+        self.image_upload_info_icon.check_visible()
 
-        self.image_upload_info_description.check_visible(identifier=identifier)
-        self.image_upload_info_description.check_have_text('Recommended file size 540X300', identifier=identifier)
+        self.image_upload_info_title.check_visible()
+        self.image_upload_info_title.check_have_text('Tap on "Upload image" button to select file')
 
-        self.upload_button.check_visible(identifier=identifier)
+        self.image_upload_info_description.check_visible()
+        self.image_upload_info_description.check_have_text('Recommended file size 540X300')
+
+        self.upload_button.check_visible()
 
         if is_image_uploaded:
-            self.remove_button.check_visible(identifier=identifier)
-            self.preview_image.check_visible(identifier=identifier)
-        else:
+            self.remove_button.check_visible()
+            self.preview_image.check_visible()
+
+        if not is_image_uploaded:
             self.preview_empty_view.check_visible(
                 title='No image selected',
-                description='Preview of selected image will be displayed here',
-                identifier=identifier
+                description='Preview of selected image will be displayed here'
             )
 
-    def click_remove_image_button(self, identifier: str):
-        self.remove_button.click(identifier=identifier)
+    def click_remove_image_button(self):
+        self.remove_button.click()
 
-    def upload_preview_image(self, file: str, identifier: str):
-        self.upload_input.set_input_files(file, identifier=identifier)
+    def upload_preview_image(self, file: str):
+        self.upload_input.set_input_files(file)
+

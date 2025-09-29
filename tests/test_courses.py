@@ -22,7 +22,7 @@ def test_create_course(courses_list_page: CoursesListPage, create_course_page: C
     create_course_page.vizit('https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses/create')
 
     create_course_page.create_course_toolbar.check_visible()
-    create_course_page.image_upload_widget.check_visible(is_image_uploaded=False)
+    create_course_page.image_upload_widget.check_visible( is_image_uploaded=False)
     create_course_page.create_course_form.check_visible(
         title='',
         description='',
