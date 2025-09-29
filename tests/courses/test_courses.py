@@ -1,8 +1,8 @@
 import pytest
 from fixtures.pages import create_course_page, courses_list_page
 
-from pages.courses_list_page import CoursesListPage
-from pages.create_course_page import CreateCoursePage
+from pages.courses.courses_list_page import CoursesListPage
+from pages.courses.create_course_page import CreateCoursePage
 
 
 @pytest.mark.regression
