@@ -16,6 +16,9 @@ from tools.allure.stories import AllureStories
 @allure.epic(AllureEpic.LMS)
 @allure.feature(AllureFeature.AUTHENTICATION)
 @allure.story(AllureStories.REGISTRATION)
+@allure.parent_suite(AllureEpic.LMS)
+@allure.suite(AllureFeature.AUTHENTICATION)
+@allure.sub_suite(AllureStories.REGISTRATION)
 class TestRegistration:
     @allure.title('Registration with correct email, username and password')
     @allure.severity(Severity.CRITICAL)
