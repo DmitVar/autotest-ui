@@ -1,15 +1,17 @@
 import pytest
-from playwright.sync_api import sync_playwright, Page, Playwright
+from playwright.sync_api import Page, Playwright
+import allure
+
 
 from pages.authentication.registration_page import RegistrationPage
-from playwright_registration import registration_button
+from _pytest.fixtures import SubRequest
+
+from tools.playwright.pages import initialize_playwright_page
 
 
 @pytest.fixture
-def chromium_page(playwright: Playwright) -> Page:
-    browser = playwright.chromium.launch(headless=False)
-    yield browser.new_page()
-    browser.close()
+def chromium_page(request: SubRequest, playwright: Playwright) -> Page:
+    yield from initialize_playwright_page(playwright, test_name=request.node.name)
 
 
 @pytest.fixture(scope='session')
@@ -29,25 +31,11 @@ def initialize_browser_state(playwright: Playwright) -> None:
     registration_page.registration_button.click()
     context.storage_state(path='browser_state.json')
     browser.close()
-    # page.goto('https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/auth/registration')
-    #
-    # registration_email_input = page.get_by_test_id('registration-form-email-input').locator('input')
-    # registration_email_input.fill('user.name@gmail.com')
-    # registration_username_input = page.get_by_test_id('registration-form-username-input').locator('input')
-    # registration_username_input.fill('username')
-    # registration_password_input = page.get_by_test_id('registration-form-password-input').locator('input')
-    # registration_password_input.fill('password')
-    # registration_button = page.get_by_test_id('registration-page-registration-button')
-    # registration_button.click()
-    #
-    # context.storage_state(path='browser_state.json')
-    # browser.close()
-
 
 @pytest.fixture
-def chromium_page_with_state(initialize_browser_state: None, playwright: Playwright) -> Page:
-    browser = playwright.chromium.launch(headless=False)
-    context = browser.new_context(storage_state='browser_state.json')
-    page = context.new_page()
-    yield page
-    browser.close()
+def chromium_page_with_state(request: SubRequest, initialize_browser_state: None, playwright: Playwright) -> Page:
+    yield from initialize_playwright_page(
+        playwright,
+        test_name=request.node.name,
+        storage_state='browser_state.json'
+    )
