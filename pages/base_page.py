@@ -2,6 +2,7 @@ from typing import Pattern
 from playwright.sync_api import Page, expect
 import allure
 
+
 class BasePage:
     def __init__(self, page: Page):
         self.page = page
