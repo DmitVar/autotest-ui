@@ -42,7 +42,7 @@ class Settings(BaseSettings):
     def initialize(cls) -> Self:
         videos_dir = DirectoryPath("./videos")
         tracing_dir = DirectoryPath("./tracing")
-        allure_results_dir = DirectoryPath("./allure_results")
+        allure_results_dir = DirectoryPath("./allure-results")
         browser_state_file = FilePath("browser-state.json")
 
         videos_dir.mkdir(exist_ok=True)
