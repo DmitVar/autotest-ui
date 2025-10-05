@@ -56,6 +56,9 @@ class Settings(BaseSettings):
     def get_base_url(self) -> str:
         return f'{self.app_url}/'
 
+#2 ядра 71.62
+#auto 57.09
+#3 53.85
 
 # Инициализируем настройки
 settings = Settings.initialize()
