@@ -69,7 +69,7 @@ jobs:
     if: always()
 
     steps:
-      - name: Download Allure resultsartiact
+      - name: Download Allure results
         uses: actions/download-artifact@v5
         with:
           name: allure-results
