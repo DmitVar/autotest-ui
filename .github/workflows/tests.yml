@@ -29,7 +29,7 @@ jobs:
 
       - name: Run Playwright tests with pytest and generate Allure results
         run: |
-          pytest -m regression --alluredir=./allure-results --numprocesses 2
+          pytest -m regression --alluredir=./allure-results --numprocesses=2
 
       - name: Restore Coverage history
         uses: actions/cache/restore@v4
@@ -74,14 +74,9 @@ jobs:
         with:
           name: allure-results
           path: allure-results
-      - name: Download Coverage report
-        uses: actions/download-artifact@v5
-        with:
-          name: coverage-report
-          path: coverage-report
 
       - name: Get Allure history
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         if: always()
         continue-on-error: true
         with:
@@ -96,7 +91,7 @@ jobs:
           allure_report: allure-report
 
       - name: Deploy report to Github Pages
-        uses: peaceiris/actions-gh-pages@v2
+        uses: peaceiris/actions-gh-pages@v4
         env:
           PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PUBLISH_BRANCH: gh-pages
