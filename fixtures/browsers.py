@@ -3,7 +3,7 @@ from playwright.sync_api import Page, Playwright
 from _pytest.fixtures import SubRequest
 
 from pages.authentication.registration_page import RegistrationPage
-from config import settings, Browser
+from config import settings
 
 from tools.playwright.pages import initialize_playwright_page
 from tools.routes import AppRoute
